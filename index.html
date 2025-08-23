@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pausitive Breathing - Find your calm with guided breathing exercises designed to reduce stress and promote relaxation." />
+  <meta name="keywords" content="breathing, meditation, relaxation, stress relief, mindfulness, wellness" />
+  <meta name="author" content="Pausitive Breathing App" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Pausitive Breathing - Guided Breathing Exercises" />
+  <meta property="og:description" content="Find your calm with guided breathing exercises designed to reduce stress and promote relaxation." />
+  <meta property="og:url" content="" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="Pausitive Breathing - Guided Breathing Exercises" />
+  <meta property="twitter:description" content="Find your calm with guided breathing exercises designed to reduce stress and promote relaxation." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Theme color -->
+  <meta name="theme-color" content="#3B82F6" />
+  <meta name="msapplication-TileColor" content="#3B82F6" />
+  
+  <!-- Prevent zoom on mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/src/styles/main.css" as="style" />
+  
+  <title>Pausitive Breathing - Guided Breathing Exercises</title>
+</head>
+<body>
+  <!-- Main App Container -->
+  <div id="app">
+    <!-- Loading state -->
+    <div class="loading-container min-h-screen flex flex-col items-center justify-center">
+      <div class="loading-animation mb-6">
+        <div class="w-16 h-16 border-4 border-white/20 border-t-white/80 rounded-full animate-spin"></div>
+      </div>
+      <h1 class="text-3xl font-light text-white mb-2">Pausitive Breathing</h1>
+      <p class="text-white/70">Loading your breathing experience...</p>
+    </div>
+  </div>
+
+  <!-- Error Boundary -->
+  <div id="error-boundary" style="display: none;" class="min-h-screen flex flex-col items-center justify-center p-8 text-center">
+    <div class="error-icon mb-6">
+      <svg class="w-16 h-16 text-red-400 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+      </svg>
+    </div>
+    <h2 class="text-2xl font-light text-white mb-4">Something went wrong</h2>
+    <p class="text-white/70 mb-6 max-w-md">
+      We're sorry, but something unexpected happened. Please try refreshing the page.
+    </p>
+    <button onclick="location.reload()" 
+            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors">
+      Refresh Page
+    </button>
+  </div>
+
+  <!-- Accessibility helpers -->
+  <div class="sr-only" aria-live="polite" id="screen-reader-status"></div>
+  
+  <!-- Script -->
+  <script type="module" src="/main.js"></script>
+  
+  <!-- Error handling -->
+  <script>
+    // Global error handler
+    window.addEventListener('error', function(e) {
+      console.error('Global error:', e.error);
+      showErrorBoundary();
+    });
+
+    window.addEventListener('unhandledrejection', function(e) {
+      console.error('Unhandled rejection:', e.reason);
+      showErrorBoundary();
+    });
+
+    function showErrorBoundary() {
+      const app = document.getElementById('app');
+      const errorBoundary = document.getElementById('error-boundary');
+      
+      if (app && errorBoundary) {
+        app.style.display = 'none';
+        errorBoundary.style.display = 'flex';
+      }
+    }
+
+    // Service Worker registration (for PWA capabilities)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+
+    // Accessibility: Update screen reader with breathing instructions
+    function updateScreenReader(message) {
+      const statusElement = document.getElementById('screen-reader-status');
+      if (statusElement) {
+        statusElement.textContent = message;
+      }
+    }
+
+    // Export for use by the app
+    window.updateScreenReader = updateScreenReader;
+
+    // Prevent double-tap zoom on iOS
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+      const now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+
+    // Disable pull-to-refresh on mobile
+    document.body.style.overscrollBehavior = 'none';
+  </script>
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pausitive Breathing",
+    "description": "Find your calm with guided breathing exercises designed to reduce stress and promote relaxation.",
+    "url": "",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Pausitive Breathing"
+    }
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables */
+:root {
+  --inhale-duration: 4s;
+  --exhale-duration: 8s;
+}
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease-in-out infinite;
+  color: white;
+}
+
+/* Background animation */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* App container */
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom animations */
+@keyframes breatheIn {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes breatheOut {
+  from {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Component animations */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+.breathe-scale {
+  animation: var(--current-animation) var(--animation-duration) ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Focus styles for accessibility */
+.technique-card:focus,
+.mode-card:focus {
+  outline: none;
+}
+
+.technique-card:focus > div,
+.mode-card:focus > div {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+/* Loading animation */
+.loading-spinner {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Breathing circle enhancements */
+.breathing-canvas {
+  filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
+  transition: filter 0.3s ease;
+  max-width: 100%;
+  height: auto;
+  width: 320px;
+  height: 320px;
+}
+
+.breathing-canvas.exhale {
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.3));
+}
+
+/* Canvas container responsiveness */
+.canvas-container {
+  width: 320px;
+  height: 320px;
+  max-width: 90vw;
+  max-height: 90vw;
+  margin: 0 auto;
+  padding: 20px; /* Add padding to prevent cutoff */
+  box-sizing: border-box;
+}
+
+/* Session info positioning */
+.session-info {
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* Session controls positioning */
+.session-controls {
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+/* Progress bar styling */
+.progress-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Button hover effects */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Card hover effects */
+.technique-card,
+.mode-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem; /* Maintain rounded corners */
+}
+
+.technique-card::before,
+.mode-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s;
+  border-radius: 0.75rem; /* Match card border radius */
+}
+
+.technique-card:hover::before,
+.mode-card:hover::before {
+  left: 100%;
+}
+
+/* Selected state styling */
+.technique-card.selected > div,
+.mode-card.selected > div {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  transform: scale(1.02);
+}
+
+/* Hover state maintains border radius */
+.technique-card:hover > div,
+.mode-card:hover > div {
+  border-radius: 0.75rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .breathing-instruction {
+    font-size: 2.5rem;
+  }
+  
+  .breathing-canvas {
+    width: 100%;
+    height: 100%;
+    max-width: 280px;
+    max-height: 280px;
+  }
+  
+  .canvas-container {
+    width: 320px;
+    height: 320px;
+    max-width: 90vw;
+    max-height: 90vw;
+    padding: 20px;
+  }
+  
+  .session-info {
+    top: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .session-controls {
+    bottom: 1.5rem;
+  }
+  
+  .breathing-visualization {
+    padding-top: 2rem;
+    padding-bottom: 8rem;
+    min-height: 100vh;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .breathing-canvas {
+    width: 100%;
+    height: 100%;
+    max-width: 220px;
+    max-height: 220px;
+  }
+  
+  .canvas-container {
+    width: 280px;
+    height: 280px;
+    max-width: 85vw;
+    max-height: 85vw;
+    padding: 30px;
+  }
+  
+  .breathing-instruction {
+    font-size: 2rem;
+  }
+  
+  .session-info {
+    padding: 0.5rem;
+  }
+  
+  .progress-bar {
+    width: 12rem;
+  }
+  
+  .breathing-visualization {
+    padding-top: 1rem;
+    padding-bottom: 10rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .breathing-canvas {
+    filter: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .technique-card,
+  .mode-card {
+    border: 2px solid white;
+  }
+  
+  .technique-card:hover,
+  .mode-card:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .session-controls,
+  button {
+    display: none !important;
+  }
+}
+
+/* Custom slider styles */
+.custom-sets-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  outline: none;
+}
+
+.custom-sets-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #3B82F6;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.custom-sets-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #3B82F6;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Completion animation */
+.completion-animation {
+  animation: completionBounce 0.8s ease-out;
+}
+
+@keyframes completionBounce {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
