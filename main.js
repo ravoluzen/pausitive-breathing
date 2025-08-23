@@ -124,14 +124,17 @@ class BreathingApp {
     
     this.appContainer.innerHTML = `
       <div class="setup-container min-h-screen flex flex-col justify-center items-center p-8">
+        <!-- Back button positioned consistently with breathing session -->
+        <button id="back-to-technique" 
+                class="back-btn fixed top-4 left-4 text-white/70 hover:text-white flex items-center z-10 bg-black/20 backdrop-blur-sm rounded-lg px-3 py-2 transition-all duration-300"
+                title="Back to Techniques">
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="hidden sm:inline">Back to Techniques</span>
+        </button>
+        
         <header class="text-center mb-8">
-          <button id="back-to-technique" 
-                  class="back-btn text-white/70 hover:text-white mb-4 flex items-center mx-auto">
-            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Back to Techniques
-          </button>
           <h2 class="text-3xl font-light text-white mb-2">Using ${this.selectedTechnique.name}</h2>
           <p class="text-white/70">${this.selectedTechnique.description}</p>
         </header>
