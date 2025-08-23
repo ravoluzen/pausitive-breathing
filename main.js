@@ -92,6 +92,19 @@ class BreathingApp {
     
     this.appContainer.innerHTML = `
       <div class="setup-container min-h-screen flex flex-col justify-center items-center p-8">
+        <!-- PWA Install Button -->
+        <button id="pwa-install-btn" 
+                class="pwa-install-button" 
+                onclick="window.installPWA()" 
+                style="display: none;"
+                title="Install Pausitive Breathing as an app">
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-2 0V5H5v10h4a1 1 0 110 2H4a1 1 0 01-1-1V4z"/>
+            <path d="M13 16a1 1 0 102 0v-3.586l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 101.414 1.414L13 12.414V16z"/>
+          </svg>
+          <span>Install App</span>
+        </button>
+
         <header class="text-center mb-12">
           <h1 class="text-4xl md:text-6xl font-light text-white mb-4">Pausitive Breathing</h1>
           <p class="text-white/70 text-lg max-w-2xl mx-auto">

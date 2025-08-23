@@ -604,6 +604,95 @@ button:active::before {
   background: rgba(0, 0, 0, 0.3);
 }
 
+/* PWA Install Button */
+.pwa-install-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(30, 64, 175, 0.9));
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
+  animation: installButtonPulse 2s ease-in-out infinite alternate;
+}
+
+.pwa-install-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 1), rgba(30, 64, 175, 1));
+}
+
+.pwa-install-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
+
+.pwa-install-button svg {
+  flex-shrink: 0;
+}
+
+@keyframes installButtonPulse {
+  0% {
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  }
+  100% {
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+}
+
+/* Mobile responsive install button */
+@media (max-width: 768px) {
+  .pwa-install-button {
+    top: 16px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 13px;
+    border-radius: 20px;
+  }
+  
+  .pwa-install-button svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pwa-install-button {
+    top: 12px;
+    right: 12px;
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 18px;
+  }
+  
+  .pwa-install-button span {
+    display: none;
+  }
+  
+  .pwa-install-button svg {
+    margin-right: 0;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Hide install button when already installed */
+@media (display-mode: standalone) {
+  .pwa-install-button {
+    display: none !important;
+  }
+}
+
 /* Standalone PWA styling adjustments */
 @media (display-mode: standalone) {
   /* Add any PWA-specific styles here */
