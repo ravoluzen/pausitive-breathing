@@ -129,81 +129,18 @@
     // PWA Install Prompt Enhancement
     let deferredPrompt;
     
-          window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        
-        // Show custom install button
-        showInstallPromotion();
-      });
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Could show custom install button here
+      showInstallPromotion();
+    });
 
-      window.addEventListener('appinstalled', (evt) => {
-        deferredPrompt = null;
-        hideInstallPromotion();
-      });
-
-      function showInstallPromotion() {
-        // Show install button on technique selection screen
-        const installBtn = document.getElementById('pwa-install-btn');
-        if (installBtn) {
-          installBtn.style.display = 'flex';
-        }
-      }
-
-      // Show install button by default if not running as PWA
-      function checkAndShowInstallButton() {
-        if (!isPWA()) {
-          const installBtn = document.getElementById('pwa-install-btn');
-          if (installBtn) {
-            installBtn.style.display = 'flex';
-          }
-        }
-      }
-
-      // Check for install button after DOM loads
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(checkAndShowInstallButton, 1000);
-      });
-
-      function hideInstallPromotion() {
-        // Hide install button
-        const installBtn = document.getElementById('pwa-install-btn');
-        if (installBtn) {
-          installBtn.style.display = 'none';
-        }
-      }
-
-      // Global install function
-      window.installPWA = function() {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              hideInstallPromotion();
-            }
-            deferredPrompt = null;
-          });
-        } else {
-          // Fallback for browsers that don't support beforeinstallprompt
-          showInstallInstructions();
-        }
-      };
-
-      function showInstallInstructions() {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        const isAndroid = /Android/.test(navigator.userAgent);
-        
-        let message = '';
-        if (isIOS) {
-          message = 'To install this app on your device:\n\n1. Tap the Share button in Safari\n2. Select "Add to Home Screen"\n3. Tap "Add" to confirm';
-        } else if (isAndroid) {
-          message = 'To install this app:\n\n1. Tap the menu button (⋮) in your browser\n2. Select "Add to Home screen" or "Install app"\n3. Tap "Add" to confirm';
-        } else {
-          message = 'To install this app:\n\n1. Look for the install icon (⬇) in your browser\'s address bar\n2. Click "Install Pausitive Breathing"\n3. The app will open in its own window';
-        }
-        
-        alert(message);
-      }
+    window.addEventListener('appinstalled', (evt) => {
+      deferredPrompt = null;
+      hideInstallPromotion();
+    });
     // Detect if running as PWA
     function isPWA() {
       return window.matchMedia('(display-mode: standalone)').matches || 
