@@ -22,11 +22,6 @@ export class TechniqueSelector {
       className: 'technique-selector'
     });
     
-    const title = this.createElement('h2', {
-      className: 'text-2xl font-light text-white mb-8 text-center',
-      textContent: 'Choose Your Breathing Technique'
-    });
-    
     const gridContainer = this.createElement('div', {
       className: 'grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto'
     });
@@ -37,7 +32,6 @@ export class TechniqueSelector {
       gridContainer.appendChild(card);
     });
     
-    selectorContainer.appendChild(title);
     selectorContainer.appendChild(gridContainer);
     this.container.appendChild(selectorContainer);
     

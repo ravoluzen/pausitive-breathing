@@ -87,6 +87,9 @@ class BreathingApp {
    * Show technique selection screen
    */
   showTechniqueSelection() {
+    // Remove breathing session class to show footer
+    document.body.classList.remove('breathing-session');
+    
     this.appContainer.innerHTML = `
       <div class="setup-container min-h-screen flex flex-col justify-center items-center p-8">
         <header class="text-center mb-12">
@@ -116,6 +119,9 @@ class BreathingApp {
    * Show mode selection screen
    */
   showModeSelection() {
+    // Remove breathing session class to show footer
+    document.body.classList.remove('breathing-session');
+    
     this.appContainer.innerHTML = `
       <div class="setup-container min-h-screen flex flex-col justify-center items-center p-8">
         <header class="text-center mb-8">
@@ -181,6 +187,9 @@ class BreathingApp {
    * Show breathing session screen
    */
   showBreathingSession() {
+    // Add breathing session class to hide footer
+    document.body.classList.add('breathing-session');
+    
     this.appContainer.innerHTML = '<div id="breathing-circle-container"></div>';
     
     // Initialize breathing circle component
