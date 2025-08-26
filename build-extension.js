@@ -16,9 +16,13 @@ async function buildExtension() {
     await copyFile('manifest.json', 'dist/manifest.json');
     console.log('✅ Extension manifest copied');
     
-    // Copy favicon for extension icon
-    await copyFile('public/favicon.svg', 'dist/favicon.svg');
-    console.log('✅ Extension icon copied');
+    // Copy icons for extension
+    await mkdir('dist/icons', { recursive: true });
+    await copyFile('icons/icon16.png', 'dist/icons/icon16.png');
+    await copyFile('icons/icon32.png', 'dist/icons/icon32.png');
+    await copyFile('icons/icon48.png', 'dist/icons/icon48.png');
+    await copyFile('icons/icon128.png', 'dist/icons/icon128.png');
+    console.log('✅ Extension icons copied');
     
     // Copy background script for extension
     await copyFile('background.js', 'dist/background.js');
