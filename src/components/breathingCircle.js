@@ -82,12 +82,12 @@ export class BreathingCircle {
     });
     
     const phaseTimer = this.createElement('div', {
-      className: 'phase-timer text-white/60 text-lg text-center'
+      className: 'phase-timer text-white/60 text-2xl text-center'
     });
     
     this.countdown = this.createElement('span', {
       className: 'countdown',
-      textContent: '4'
+      textContent: '0'
     });
     
     phaseTimer.appendChild(this.countdown);
@@ -117,7 +117,7 @@ export class BreathingCircle {
     const innerRing = this.createElement('div', {
       className: 'guide-ring-inner absolute w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full border border-white/5'
     });
-    
+
     guideRings.appendChild(outerRing);
     guideRings.appendChild(innerRing);
     canvasContainer.appendChild(this.canvas);
@@ -188,7 +188,7 @@ export class BreathingCircle {
     
     // Set counter
     this.setCounter = this.createElement('div', {
-      className: 'set-counter text-white/80 text-sm',
+      className: 'set-counter text-white/80 text-xl',
       textContent: 'Set 1 of 1'
     });
     
@@ -380,13 +380,14 @@ export class BreathingCircle {
     ctx.stroke();
     ctx.shadowBlur = 0;
     
-    // Center dot with breathing animation
+    // Breathing animation circle
     const scale = this.currentPhase === BREATHING_PHASES.INHALE 
       ? 1 + (progress * 0.4) 
       : 1.4 - (progress * 0.4);
     
-    const dotRadius = 12 * scale;
+    const dotRadius = 24 * scale;
     
+    // Inner animated circle (no fill, just stroke)
     ctx.beginPath();
     ctx.arc(scaledCenterX, scaledCenterY, dotRadius, 0, 2 * Math.PI);
     ctx.fillStyle = this.currentPhase === BREATHING_PHASES.INHALE 
