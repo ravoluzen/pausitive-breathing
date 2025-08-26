@@ -88,10 +88,12 @@
   <script>
     // Global error handler
     window.addEventListener('error', function(e) {
+      console.error('Global error:', e.error);
       showErrorBoundary();
     });
 
     window.addEventListener('unhandledrejection', function(e) {
+      console.error('Unhandled rejection:', e.reason);
       showErrorBoundary();
     });
 
@@ -110,54 +112,13 @@
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js')
           .then(function(registration) {
-            
-            // Check for updates
-            registration.addEventListener('updatefound', () => {
-              const newWorker = registration.installing;
-              newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  alert('New version available, please refresh the page');
-                }
-              });
-            });
+            console.log('SW registered: ', registration);
           })
           .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
           });
       });
     }
-
-    // PWA Install Prompt Enhancement
-    let deferredPrompt;
-    
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      
-      // Could show custom install button here
-      showInstallPromotion();
-    });
-
-    window.addEventListener('appinstalled', (evt) => {
-      deferredPrompt = null;
-      hideInstallPromotion();
-    });
-    // Detect if running as PWA
-    function isPWA() {
-      return window.matchMedia('(display-mode: standalone)').matches || 
-             window.navigator.standalone === true;
-    }
-    // Network status detection
-    function updateNetworkStatus() {
-      if (navigator.onLine) {
-        document.body.classList.remove('offline');
-      } else {
-        document.body.classList.add('offline');
-      }
-    }
-
-    window.addEventListener('online', updateNetworkStatus);
-    window.addEventListener('offline', updateNetworkStatus);
-    updateNetworkStatus();
 
     // Accessibility: Update screen reader with breathing instructions
     function updateScreenReader(message) {

@@ -9,6 +9,11 @@ lerna-debug.log*
 # Build outputs
 dist/
 build/
+
+# Chrome Extension specific
+*.crx
+*.pem
+extension.zip
 out/
 *.tsbuildinfo
 

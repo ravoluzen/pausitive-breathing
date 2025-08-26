@@ -40,8 +40,20 @@ class BreathingApp {
    * Initialize the application
    */
   initialize() {
+    // Add extension context class if running as Chrome extension
+    if (this.detectExtension()) {
+      document.body.classList.add('extension-context');
+    }
+    
     this.setupEventListeners();
     this.showTechniqueSelection();
+  }
+
+  /**
+   * Detect if the app is running as a Chrome extension
+   */
+  detectExtension() {
+    return window.chrome && window.chrome.runtime && window.chrome.runtime.id;
   }
 
   /**
